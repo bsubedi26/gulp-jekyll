@@ -46,7 +46,6 @@ javascript:
   src: 
     - "assets/js/**.js"
     - "!_sites/assets/js/build.js"
-    - "assets/js/button.js"
     - "assets/js/app.js"
 
 

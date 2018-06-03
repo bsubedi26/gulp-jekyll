@@ -50,7 +50,6 @@ gulp.task('sass', () => {
 
 gulp.task('javascript', () => {
   browserSync.notify(config.javascript.notification)
-  console.log('config.javascript.src: ', config.javascript.src)
   return gulp
     .src(config.javascript.src)
     .pipe(sourcemaps.init())
