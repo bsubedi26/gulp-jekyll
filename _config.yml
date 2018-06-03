@@ -29,6 +29,7 @@ exclude:
   - "Gemfile"
   - "Gemfile.lock"
   - "gulpconfig.yml"
+  - "/app/"
 
 gems:
   - jekyll-sitemap

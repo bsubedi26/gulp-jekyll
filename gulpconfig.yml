@@ -1,6 +1,6 @@
 browsersync:
   notify: true
-  open:   true
+  open:   false
   port:   3000
   server:
     basedir: "_site/"
@@ -10,7 +10,7 @@ browsersync:
 clean:
   # The jekyll build dir
   - "_site"
-  - "assets/js/build.js"
+  # - "assets/js/build.js"
 
 copy:
   # Paths to static assets that aren't (S)CSS or JavaScript
@@ -39,14 +39,15 @@ sass:
 
 javascript:
   dest:
-    jekyllRoot: "assets/js/"
+    # jekyllRoot: "assets/js/"
     buildDir: "_site/assets/js/"
   filename: "build.js"
   notification: "Running JavaScript"
+  entry: app/main.js
   src: 
-    - "assets/js/**.js"
+    # - "assets/js/**.js"
+    # - "assets/js/app.js"
     - "!_sites/assets/js/build.js"
-    - "assets/js/app.js"
 
 
 jekyll:
@@ -57,7 +58,9 @@ watch:
   # javascript: "assets/js/app.js"
   # javascript: "assets/js/**/*.{js,jsx}"
   javascript: 
-    - "assets/js/**.js"
+    - "app/**/*"
+    # - "assets/js/**.js"
+    # - "app/main.js"
   sass: "assets/scss/**/*.scss"
   pages:
     - "*.{md,html,yml,xml}"

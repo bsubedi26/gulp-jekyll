@@ -16,8 +16,15 @@ var uglify = require('gulp-uglify')
 var imagemin = require('gulp-imagemin')
 var rsync = require('gulp-rsync')
 const babel = require('gulp-babel')
+var browserify = require('browserify')
+var babelify = require('babelify')
+var source = require('vinyl-source-stream')
+var colors = require('colors')
+var watchify = require('watchify')
 
 const PRODUCTION = yargs.argv.production
+
+const handleError = type => err => console.error(colors.red(`[${type} error]`), err.message)
 
 const loadConfig = () => yaml.load(fs.readFileSync('gulpconfig.yml', 'utf8'))
 const config = loadConfig()
@@ -48,7 +55,29 @@ gulp.task('sass', () => {
     .pipe(browserSync.stream())
 })
 
-gulp.task('javascript', () => {
+gulp.task('javascript', function() {
+  var bundler = browserify(config.javascript.entry, {
+    debug: !PRODUCTION,
+    cache: {}
+  })
+  .transform('babelify', {
+    presets: ['babel-preset-env', 'babel-preset-react']
+  })
+
+  bundler = watchify(bundler)
+
+  const rebundle = () => {
+    return bundler.bundle()
+      .on('error', handleError('Browserify'))
+      .pipe(source('build.js'))
+      .pipe(gulpif(PRODUCTION, uglify()))
+      .pipe(gulp.dest(config.javascript.dest.buildDir))
+  }
+  bundler.on('update', rebundle)
+  return rebundle()
+})
+
+gulp.task('javascript-old', () => {
   browserSync.notify(config.javascript.notification)
   return gulp
     .src(config.javascript.src)
@@ -110,6 +139,10 @@ gulp.task('browser-sync', () => {
 gulp.task('watch', () => {
   gulp.watch(config.watch.pages, ['build', browserSync.reload])
   gulp.watch(config.watch.javascript, ['javascript', browserSync.reload])
+  // gulp.watch(config.watch.javascript, () => sequence('javascript', browserSync.reload))
+  // gulp.watch(config.watch.javascript, ['javascript'])
+  // gulp.watch('templates/**/*.html', function(){ runSequence('templates', 'bundleJS') })
+
   gulp.watch(config.watch.sass, ['sass'])
   gulp.watch(config.watch.images, ['copy', browserSync.reload])
 })
