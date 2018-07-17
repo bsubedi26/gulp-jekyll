@@ -27,3 +27,25 @@ collections:
         name: "align"
         widget: "select"
         options: ["left", "center", "right"]
+
+      - label: Sections
+        name: sections
+        widget: list
+        types:
+          - label: Generic Section
+            name: generic-section
+            fields:
+              - label: Title
+                name: title
+              - label: Content
+                name: content
+                widget: markdown
+          - label: Team Section
+            name: team-section
+            fields:
+              - label: People
+                name: people
+                widget: list
+                fields:
+                  - label: Name
+                    name: name
