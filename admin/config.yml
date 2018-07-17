@@ -18,4 +18,7 @@ collections:
       - {label: "Layout", name: "layout", widget: "hidden", default: "post"}
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Body", name: "body", widget: "markdown"}
-    
+      - label: "Align Content"
+        name: "align"
+        widget: "select"
+        options: ["left", "center", "right"]
