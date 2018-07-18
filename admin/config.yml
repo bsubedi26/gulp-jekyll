@@ -28,50 +28,19 @@ collections:
         widget: "select"
         options: ["left", "center", "right"]
       
-
-
-      - {
-        label: "Section",
-        name: "section",
-        widget: "relation",
-        collection: "sections",
-        searchFields: ["title"],
-        valueField: "title",
-      }
-      - {
-          label: "Subsection",
-          name: "subsection",
-          widget: "relation",
-          collection: "subsections",
-          searchFields: ["title"],
-          valueField: "slug",
-          filterField: "section"
-        }
+  - name: "english_posts"
+    folder: "_posts"
+    label: "Blog in English"
+    filter: {field: "language", value: "en"}
+    fields:
+      - {label: "Language", name: "language", widget: "select", options: ["en", "es"]}
       - {label: "Title", name: "title", widget: "string"}
-      - {label: "Subtitle", name: "subtitle", widget: "string"}
-      - {label: "Body", name: "body", widget: "markdown"}
-      - {label: "Tags", name: "tags", widget: "list"}
-
-      - name: "sections"
-        label: "Sections"
-        folder: "sections"
-        create: true
-        slug: "{{slug}}"
-        fields:
-          - {label: "Section name", name: "title", widget: "string"}
-
-      - name: "subsections"
-        label: "Subsections"
-        folder: "subsections"
-        create: true
-        slug: "{{slug}}"
-        fields:
-          - {
-              label: "Section",
-              name: "section",
-              widget: "relation",
-              collection: "sections",
-              searchFields: ["title"],
-              valueField: "title"
-            }
-          - {label: "Subsection name", name: "title", widget: "string"}
+      - {label: "Content", name: "body", widget: "markdown"}      
+  - name: "spanish_posts"
+    label: "Blog en Español"
+    folder: "_posts"
+    filter: {field: "language", value: "es"}
+    fields:
+      - {label: "Lenguaje", name: "language", widget: "select", options: ["en", "es"]}
+      - {label: "Titulo", name: "title", widget: "string"}
+      - {label: "Contenido", name: "body", widget: "markdown"}    
