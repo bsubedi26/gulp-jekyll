@@ -30,6 +30,7 @@ collections:
       
   - name: "english_posts"
     folder: "_posts"
+    create: true
     label: "Blog in English"
     filter: {field: "language", value: "en"}
     fields:
@@ -38,6 +39,7 @@ collections:
       - {label: "Content", name: "body", widget: "markdown"}      
   - name: "spanish_posts"
     label: "Blog en Español"
+    create: true
     folder: "_posts"
     filter: {field: "language", value: "es"}
     fields:
